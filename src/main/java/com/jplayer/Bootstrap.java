@@ -1,0 +1,21 @@
+package com.jplayer;
+
+import com.jplayer.view.controller.AppActivity;
+import com.jplayer.view.util.FxmlUtils;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class Bootstrap extends Application {
+
+    public static void main( String[] args ){
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        FxmlUtils.startActivity(stage, AppActivity.class);
+        FxmlUtils.addAppToTray(stage);
+        stage.show();
+    }
+
+}

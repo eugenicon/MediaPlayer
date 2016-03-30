@@ -1,0 +1,21 @@
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- import all default layouts -->
+<ScrollPane xmlns:fx="http://javafx.com/fxml"  fitToHeight="true" fitToWidth="true"><content>
+
+       <FlowPane fx:id="authorsPane" accessibleRole="SCROLL_PANE" alignment="TOP_CENTER" columnHalignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWrapLength="50.0" vgap="20.0">
+          <padding>
+             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+          </padding>
+       </FlowPane>
+    </content>
+</ScrollPane>
+
