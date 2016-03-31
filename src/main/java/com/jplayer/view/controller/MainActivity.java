@@ -3,6 +3,10 @@ package com.jplayer.view.controller;
 import com.jplayer.view.MediaViewHelper;
 import com.jplayer.view.util.FxmlUtils;
 import com.jplayer.view.util.SceneContent;
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.FlowPane;
@@ -18,7 +22,8 @@ public class MainActivity extends Fragment {
     public void onCreateView(FXMLLoader fxmlLoader) {
         FxmlUtils.setupScene(fxmlLoader);
         if (authorsPane.getChildren().isEmpty()){
-            MediaViewHelper.setup(authorsPane);
+            ScanService scanService = new ScanService();
+            scanService.start();
         }
     }
 
@@ -29,4 +34,33 @@ public class MainActivity extends Fragment {
 
     }
 
+    class ScanService extends Service<Boolean> {
+
+        ScanService() {
+            super();
+            this.setOnSucceeded((WorkerStateEvent event) -> {
+
+
+                    }
+            );
+        }
+
+        protected Task<Boolean> createTask() {
+
+            return new Task<Boolean>() {
+                protected Boolean call() {
+
+                    try {
+                        Platform.runLater(()->MediaViewHelper.setup(authorsPane));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    return true;
+                }
+            };
+        }
+    }
+
 }
+

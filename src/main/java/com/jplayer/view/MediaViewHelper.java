@@ -22,7 +22,7 @@ public class MediaViewHelper {
         String key = "a60e68714a3cdf0ae6a558ae64346e6e";
 
         authorsPane.getChildren().clear();
-        authors.stream().limit(3).forEach(author -> {
+        authors.stream().limit(13).forEach(author -> {
 
             Label label = new Label(author);
             ImageView pane = new ImageView();
@@ -47,9 +47,7 @@ public class MediaViewHelper {
             authorsPane.getChildren().add(vBox);
 
             vBox.setCursor(Cursor.OPEN_HAND);
-            vBox.setOnMouseClicked(e -> {
-                System.out.println(author);
-            });
+            vBox.setOnMouseClicked(e -> System.out.println(author));
         });
 
         System.out.println(authors);

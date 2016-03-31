@@ -2,9 +2,13 @@ package com.jplayer.view.util;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.kairos.components.MaterialButton;
 import org.kairos.core.Activity;
@@ -63,11 +67,17 @@ public class FxmlUtils {
     private static InputStream prepareFragmentXML(InputStream inputStream) throws IOException {
         String content = new String(IOUtils.readFully(inputStream, Integer.MAX_VALUE, true));
         String fragmentRoot = "<fx:root xmlns:fx=\"http://javafx.com/fxml\" xmlns=\"http://javafx.com/javafx/8\" type=\"org.kairos.core.Fragment\">";
+
         if (!content.contains(fragmentRoot)) {
-            StringBuilder sb = new StringBuilder(
-                    content.replaceAll("xmlns:fx=\"http://javafx.com/fxml\"", ""));
-            sb.insert(sb.lastIndexOf("?>")+3, fragmentRoot);
-            sb.append("</fx:root>");
+            String completeRoot = "<?import javafx.scene.layout.VBox?>\n" +
+                    "<?import javafx.scene.layout.AnchorPane?>\n" + fragmentRoot +
+                    "\n<VBox AnchorPane.topAnchor=\"0\" AnchorPane.rightAnchor=\"0\"\n" +
+                    " AnchorPane.bottomAnchor=\"0\" AnchorPane.leftAnchor=\"0\">";
+            String completeTail = "\n</VBox>\n</fx:root>";
+
+            StringBuilder sb = new StringBuilder(content);
+            sb.insert(sb.lastIndexOf("?>")+3, completeRoot);
+            sb.append(completeTail);
             return new ByteArrayInputStream(sb.toString().getBytes(StandardCharsets.UTF_8));
         }
         return null;
