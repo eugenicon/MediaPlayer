@@ -24,7 +24,7 @@ public class FxmlUtils {
             Class<?> activityClass = activity.getClass();
             activity.setContentView(
                     activityClass.getResource(
-                            getResourcePath(activityClass)));
+                             getResourcePath(activityClass)));
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -45,7 +45,7 @@ public class FxmlUtils {
                     fxmlLoader.load();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new IllegalStateException("Unable to load resource " + resourcePath);
             }
         }
     }

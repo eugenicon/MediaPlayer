@@ -1,7 +1,8 @@
 package com.jplayer.view.controller;
 
-import com.jplayer.view.controller.fragments.Settings;
-import com.jplayer.view.util.fxml.FragmentPager;
+import com.jplayer.view.controller.settings.Settings;
+import com.jplayer.view.controller.library.LibraryController;
+import com.jplayer.view.util.widget.FragmentPager;
 import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
 import javafx.fxml.FXML;
@@ -31,7 +32,7 @@ public class AppActivity extends Activity{
         FragmentPager pagerAdapter = new FragmentPager(getFragmentManager());
         viewPager.setAdapter(pagerAdapter);
 
-        pagerAdapter.addTab(new FragmentPager.Tab("Library",   MainActivity.class));
+        pagerAdapter.addTab(new FragmentPager.Tab("Library",   LibraryController.class));
         pagerAdapter.addTab(new FragmentPager.Tab("Settings",  Settings.class));
         tabLayout.setViewPager(viewPager);
 

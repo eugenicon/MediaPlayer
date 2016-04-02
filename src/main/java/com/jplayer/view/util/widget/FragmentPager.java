@@ -1,4 +1,4 @@
-package com.jplayer.view.util.fxml;
+package com.jplayer.view.util.widget;
 
 import javafx.scene.layout.Pane;
 import org.kairos.FragmentStatePagerAdapter;
@@ -36,7 +36,7 @@ public class FragmentPager extends FragmentStatePagerAdapter {
         try {
             Tab tab = tabs.get(i);
 
-        if (tab.fragmentInstance == null){
+            if (tab.fragmentInstance == null){
                 tab.fragmentInstance = tab.fragment.newInstance();
                 tab.fragmentInstance.setArguments(tab.arguments);
             }
@@ -66,6 +66,13 @@ public class FragmentPager extends FragmentStatePagerAdapter {
         tabs.add(tab);
     }
 
+    public void addTab(String tabLabel, Class<? extends Fragment> fragmentClass, HashMap arguments){
+        tabs.add(new FragmentPager.Tab(tabLabel, fragmentClass, arguments));
+    }
+
+    public void addTab(String tabLabel, Class<? extends Fragment> fragmentClass){
+        tabs.add(new FragmentPager.Tab(tabLabel, fragmentClass));
+    }
 
     public static class Tab{
         protected String title;
@@ -76,6 +83,7 @@ public class FragmentPager extends FragmentStatePagerAdapter {
         public Tab(String title,Class<? extends Fragment > fragment){
             this.title=title;
             this.fragment=fragment;
+            this.arguments = new HashMap();
         }
 
         public Tab(String title,Class<? extends Fragment > fragment, HashMap arguments){

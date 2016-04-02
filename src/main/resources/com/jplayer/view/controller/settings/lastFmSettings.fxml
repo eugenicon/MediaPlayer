@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kairos.components.MaterialButton?>
+<?import org.kairos.components.TextInputLayout?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextInputLayout>
+         <TextField fx:id="userField" onKeyTyped="#userCredinialsChanged" promptText="Username" />
+      </TextInputLayout>
+      <TextInputLayout>
+         <PasswordField fx:id="passwordField" onKeyTyped="#userCredinialsChanged" promptText="Password" />
+      </TextInputLayout>
+      <MaterialButton fx:id="connectionButton" onAction="#connect" text="Connect" />
+   </children>
+   <padding>
+      <Insets left="10.0" top="10.0" />
+   </padding>
+</VBox>

@@ -1,8 +1,8 @@
-package com.jplayer.view.controller;
+package com.jplayer.view.controller.library;
 
 import com.jplayer.media.MediaFile;
 import com.jplayer.media.MediaReader;
-import com.jplayer.view.MediaViewHelper;
+import com.jplayer.view.tmp.MediaViewHelper;
 import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
 import javafx.concurrent.Service;
@@ -15,8 +15,8 @@ import org.kairos.core.Fragment;
 
 import java.util.List;
 
-@SceneContent("main_activity")
-public class MainActivity extends Fragment {
+@SceneContent("library")
+public class LibraryController extends Fragment {
 
     @FXML
     private FlowPane authorsPane;

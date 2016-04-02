@@ -1,4 +1,4 @@
-package com.jplayer.view.controller.fragments;
+package com.jplayer.view.util.widget;
 
 
 import com.sun.javafx.scene.control.skin.ButtonSkin;

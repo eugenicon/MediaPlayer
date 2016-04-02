@@ -1,4 +1,4 @@
-package com.jplayer.view;
+package com.jplayer.view.tmp;
 
 import com.jplayer.media.MediaFile;
 import de.umass.lastfm.Artist;
