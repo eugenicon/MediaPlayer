@@ -1,0 +1,12 @@
+<?import com.jplayer.view.controller.fragments.VerticalSlidingTabLayout?>
+<?import javafx.scene.layout.HBox?>
+<?import org.kairos.layouts.ViewPager?>
+<?import org.kairos.Toolbar?>
+<HBox xmlns:fx="http://javafx.com/fxml" prefWidth="800" prefHeight="600" spacing="8" alignment="TOP_CENTER" >
+    <Toolbar fx:id="toolbar1" maxWidth="30" >
+
+        <VerticalSlidingTabLayout fx:id="tabLayout1"  />
+
+    </Toolbar>
+    <ViewPager fx:id="viewPager1" HBox.hgrow="ALWAYS"/>
+</HBox>

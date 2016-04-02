@@ -1,14 +1,10 @@
-package com.jplayer.view.util;
+package com.jplayer.view.util.fxml;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.kairos.components.MaterialButton;
 import org.kairos.core.Activity;

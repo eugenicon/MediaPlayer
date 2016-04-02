@@ -1,9 +1,10 @@
 package com.jplayer.view.controller;
 
+import com.jplayer.media.MediaFile;
+import com.jplayer.media.MediaReader;
 import com.jplayer.view.MediaViewHelper;
-import com.jplayer.view.util.FxmlUtils;
-import com.jplayer.view.util.SceneContent;
-import javafx.application.Platform;
+import com.jplayer.view.util.fxml.FxmlUtils;
+import com.jplayer.view.util.fxml.SceneContent;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -12,17 +13,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.FlowPane;
 import org.kairos.core.Fragment;
 
+import java.util.List;
+
 @SceneContent("main_activity")
 public class MainActivity extends Fragment {
 
     @FXML
     private FlowPane authorsPane;
 
+    private ScanService scanService;
+
     @Override
     public void onCreateView(FXMLLoader fxmlLoader) {
         FxmlUtils.setupScene(fxmlLoader);
-        if (authorsPane.getChildren().isEmpty()){
-            ScanService scanService = new ScanService();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (scanService == null){
+            scanService = new ScanService();
             scanService.start();
         }
     }
@@ -50,11 +60,9 @@ public class MainActivity extends Fragment {
             return new Task<Boolean>() {
                 protected Boolean call() {
 
-                    try {
-                        Platform.runLater(()->MediaViewHelper.setup(authorsPane));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    List<MediaFile> mediaFiles = new MediaReader().readMedia("/media/data/Music");
+
+                    MediaViewHelper.setup(mediaFiles, authorsPane);
 
                     return true;
                 }

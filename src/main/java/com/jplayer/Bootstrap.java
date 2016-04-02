@@ -1,7 +1,7 @@
 package com.jplayer;
 
 import com.jplayer.view.controller.AppActivity;
-import com.jplayer.view.util.FxmlUtils;
+import com.jplayer.view.util.fxml.FxmlUtils;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

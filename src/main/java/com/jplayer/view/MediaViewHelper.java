@@ -1,7 +1,9 @@
 package com.jplayer.view;
 
+import com.jplayer.media.MediaFile;
 import de.umass.lastfm.Artist;
 import de.umass.lastfm.ImageSize;
+import javafx.application.Platform;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -12,13 +14,21 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MediaViewHelper {
 
-    public static void setup(FlowPane authorsPane) {
-        List<String> authors = Arrays.asList("Powerwolf","We butter the bread with butter",
+    public static void setup(List<MediaFile> mediaFiles, FlowPane authorsPane) {
+
+        Set<String> authors = mediaFiles.stream()
+                .map(MediaFile::getArtist)
+                .sorted()
+                .collect(Collectors.toSet());
+
+/*        List<String> authors = Arrays.asList("Powerwolf","We butter the bread with butter",
                 "Inflames","Amorphis","Metallica","nazareth","system of a down",
-                "Deftones","Doors","Diablo","Udo","Rage");
+                "Deftones","Doors","Diablo","Udo","Rage");*/
         String key = "a60e68714a3cdf0ae6a558ae64346e6e";
 
         authorsPane.getChildren().clear();
@@ -43,11 +53,10 @@ public class MediaViewHelper {
             VBox vBox = new VBox();
             vBox.getChildren().addAll(pane, label);
             vBox.setMaxWidth(128);
-
-            authorsPane.getChildren().add(vBox);
-
             vBox.setCursor(Cursor.OPEN_HAND);
             vBox.setOnMouseClicked(e -> System.out.println(author));
+
+            Platform.runLater(()->authorsPane.getChildren().add(vBox));
         });
 
         System.out.println(authors);
