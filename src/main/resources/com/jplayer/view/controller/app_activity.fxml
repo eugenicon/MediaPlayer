@@ -9,4 +9,7 @@
 
     </Toolbar>
     <ViewPager fx:id="viewPager" VBox.vgrow="ALWAYS"/>
+
+        <fx:include source="playerControls.fxml" />
+
 </VBox>

@@ -13,7 +13,7 @@ import org.kairos.layouts.ViewPager;
 import java.util.HashMap;
 
 @SceneContent("settings")
-public class Settings extends Fragment {
+public class SettingsController extends Fragment {
 
     @FXML
     private VerticalSlidingTabLayout tabLayout;
@@ -34,6 +34,7 @@ public class Settings extends Fragment {
             HashMap args = new HashMap();
             args.put("lastFmConnected", false);
 
+            pagerAdapter.addTab("General", GeneralSettings.class, args);
             pagerAdapter.addTab("LastFM",  LastFMSettings.class, args);
             tabLayout.setViewPager(viewPager);
 

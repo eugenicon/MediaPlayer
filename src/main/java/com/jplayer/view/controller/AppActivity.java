@@ -1,6 +1,6 @@
 package com.jplayer.view.controller;
 
-import com.jplayer.view.controller.settings.Settings;
+import com.jplayer.view.controller.settings.SettingsController;
 import com.jplayer.view.controller.library.LibraryController;
 import com.jplayer.view.util.widget.FragmentPager;
 import com.jplayer.view.util.fxml.FxmlUtils;
@@ -20,6 +20,18 @@ public class AppActivity extends Activity{
     private org.kairos.layouts.ViewPager viewPager;
 
     @Override
+    protected void onDestroy() {
+        System.out.println("onDestroy");
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        System.out.println("onStop");
+        super.onStop();
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
         FxmlUtils.setupScene(this);
@@ -33,7 +45,7 @@ public class AppActivity extends Activity{
         viewPager.setAdapter(pagerAdapter);
 
         pagerAdapter.addTab(new FragmentPager.Tab("Library",   LibraryController.class));
-        pagerAdapter.addTab(new FragmentPager.Tab("Settings",  Settings.class));
+        pagerAdapter.addTab(new FragmentPager.Tab("Settings",  SettingsController.class));
         tabLayout.setViewPager(viewPager);
 
         viewPager.setCurrentItem(0);

@@ -33,7 +33,7 @@ public class LibraryController extends Fragment {
         super.onResume();
         if (scanService == null){
             scanService = new ScanService();
-            scanService.start();
+            //scanService.start();
         }
     }
 
