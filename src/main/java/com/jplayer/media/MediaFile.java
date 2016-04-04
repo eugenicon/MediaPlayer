@@ -1,5 +1,6 @@
 package com.jplayer.media;
 
+import java.net.URI;
 import java.nio.file.Path;
 import java.time.Duration;
 
@@ -43,6 +44,10 @@ public class MediaFile {
 
     public Path getPath() {
         return path;
+    }
+
+    public String getURI(){
+        return path.toUri().toString();
     }
 
     public void setPath(Path path) {

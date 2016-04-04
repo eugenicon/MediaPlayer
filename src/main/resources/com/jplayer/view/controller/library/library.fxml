@@ -7,8 +7,12 @@
 
 <!-- import all default layouts -->
 
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
 <HBox xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
-    <ScrollPane fitToHeight="true" fitToWidth="true" hmax="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+    <StackPane HBox.hgrow="ALWAYS" >
+        <Label fx:id="noContentLabel" text="No content in library" StackPane.alignment="CENTER" visible="false" />
+        <ScrollPane fitToHeight="true" fitToWidth="true" hmax="Infinity" maxWidth="Infinity" StackPane.alignment="CENTER">
 
         <FlowPane fx:id="authorsPane" alignment="TOP_CENTER" columnHalignment="CENTER" hgap="20.0" vgap="20.0">
             <padding>
@@ -17,4 +21,5 @@
 
         </FlowPane>
     </ScrollPane>
+</StackPane>
 </HBox>

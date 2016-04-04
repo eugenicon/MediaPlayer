@@ -10,6 +10,7 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import org.kairos.core.Fragment;
 
@@ -21,27 +22,18 @@ public class LibraryController extends Fragment {
     @FXML
     private FlowPane authorsPane;
 
+    @FXML
+    Label noContentLabel;
+
     private ScanService scanService;
 
     @Override
     public void onCreateView(FXMLLoader fxmlLoader) {
         FxmlUtils.setupScene(fxmlLoader);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (scanService == null){
+        if (getState() <= 1){
             scanService = new ScanService();
-            //scanService.start();
+            scanService.start();
         }
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-
     }
 
     class ScanService extends Service<Boolean> {

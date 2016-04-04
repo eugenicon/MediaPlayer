@@ -1,5 +1,8 @@
 package com.jplayer.view.controller;
 
+import com.jplayer.media.MediaFile;
+import com.jplayer.model.MediaPlayer;
+import com.jplayer.view.controller.playlist.PlayListController;
 import com.jplayer.view.controller.settings.SettingsController;
 import com.jplayer.view.controller.library.LibraryController;
 import com.jplayer.view.util.widget.FragmentPager;
@@ -12,23 +15,20 @@ import org.kairos.layouts.SlidingTabLayout;
 
 @SceneContent("app_activity")
 public class AppActivity extends Activity{
+
     @FXML
     Toolbar toolbar;
+
     @FXML
     private SlidingTabLayout tabLayout;
+
     @FXML
     private org.kairos.layouts.ViewPager viewPager;
 
-    @Override
-    protected void onDestroy() {
-        System.out.println("onDestroy");
-        super.onDestroy();
-    }
+    private MediaPlayer player;
 
-    @Override
-    protected void onStop() {
-        System.out.println("onStop");
-        super.onStop();
+    public MediaPlayer getPlayer() {
+        return player;
     }
 
     @Override
@@ -36,26 +36,30 @@ public class AppActivity extends Activity{
         super.onCreate();
         FxmlUtils.setupScene(this);
 
+        player = new MediaPlayer();
+
+        setupToolbar();
+        setupPager();
+
+    }
+
+    private void setupToolbar() {
         toolbar.setTitle("jPlayer");
         toolbar.setDisplayHomeAsUpEnabled(true);
 
         setActionBar(toolbar);
+    }
 
+    private void setupPager() {
         FragmentPager pagerAdapter = new FragmentPager(getFragmentManager());
         viewPager.setAdapter(pagerAdapter);
 
         pagerAdapter.addTab(new FragmentPager.Tab("Library",   LibraryController.class));
+        pagerAdapter.addTab(new FragmentPager.Tab("Playlist",  PlayListController.class));
         pagerAdapter.addTab(new FragmentPager.Tab("Settings",  SettingsController.class));
         tabLayout.setViewPager(viewPager);
 
         viewPager.setCurrentItem(0);
-
-
     }
-
-    public void setTitle(String title){
-        toolbar.setTitle(title);
-    }
-
 
 }
