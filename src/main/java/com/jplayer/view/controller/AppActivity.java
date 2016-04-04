@@ -1,13 +1,16 @@
 package com.jplayer.view.controller;
 
 import com.jplayer.media.MediaFile;
+import com.jplayer.media.MediaLibrary;
 import com.jplayer.model.MediaPlayer;
+import com.jplayer.view.controller.library.LibraryController;
 import com.jplayer.view.controller.playlist.PlayListController;
 import com.jplayer.view.controller.settings.SettingsController;
-import com.jplayer.view.controller.library.LibraryController;
-import com.jplayer.view.util.widget.FragmentPager;
 import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
+import com.jplayer.view.util.widget.FragmentPager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import org.kairos.Toolbar;
 import org.kairos.core.Activity;
@@ -27,8 +30,18 @@ public class AppActivity extends Activity{
 
     private MediaPlayer player;
 
+    private MediaLibrary mediaLibrary;
+
     public MediaPlayer getPlayer() {
         return player;
+    }
+
+    public MediaLibrary getMediaLibrary() {
+        return mediaLibrary;
+    }
+
+    public ObservableList<MediaFile> getMediaFiles() {
+        return (ObservableList<MediaFile>) mediaLibrary.getContent();
     }
 
     @Override
@@ -37,6 +50,8 @@ public class AppActivity extends Activity{
         FxmlUtils.setupScene(this);
 
         player = new MediaPlayer();
+        mediaLibrary = new MediaLibrary(FXCollections.observableArrayList());
+        mediaLibrary.addObserver((o, arg) -> System.out.println(arg));
 
         setupToolbar();
         setupPager();

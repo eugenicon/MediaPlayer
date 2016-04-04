@@ -2,6 +2,7 @@ package com.jplayer.view.controller.library;
 
 import com.jplayer.media.MediaFile;
 import com.jplayer.media.MediaReader;
+import com.jplayer.view.controller.AppActivity;
 import com.jplayer.view.tmp.MediaViewHelper;
 import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
@@ -20,28 +21,30 @@ import java.util.List;
 public class LibraryController extends Fragment {
 
     @FXML
-    private FlowPane authorsPane;
-
-    @FXML
     Label noContentLabel;
-
+    @FXML
+    private FlowPane authorsPane;
     private ScanService scanService;
 
     @Override
     public void onCreateView(FXMLLoader fxmlLoader) {
         FxmlUtils.setupScene(fxmlLoader);
         if (getState() <= 1){
-            scanService = new ScanService();
+            scanService = new ScanService(((AppActivity) getActivity()).getMediaLibrary());
             scanService.start();
         }
     }
 
+
     class ScanService extends Service<Boolean> {
 
-        ScanService() {
-            super();
-            this.setOnSucceeded((WorkerStateEvent event) -> {
+        private List<MediaFile> mediaFiles;
 
+        public ScanService(List<MediaFile> mediaFiles) {
+            super();
+            this.mediaFiles = mediaFiles;
+
+            this.setOnSucceeded((WorkerStateEvent event) -> {
 
                     }
             );
@@ -52,7 +55,7 @@ public class LibraryController extends Fragment {
             return new Task<Boolean>() {
                 protected Boolean call() {
 
-                    List<MediaFile> mediaFiles = new MediaReader().readMedia("/media/data/Music");
+                    new MediaReader(mediaFiles).readMedia("/media/data/Music");
 
                     MediaViewHelper.setup(mediaFiles, authorsPane);
 

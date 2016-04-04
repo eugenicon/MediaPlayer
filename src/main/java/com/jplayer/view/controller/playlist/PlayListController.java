@@ -1,23 +1,41 @@
 package com.jplayer.view.controller.playlist;
 
-import com.jplayer.model.MediaPlayer;
+import com.jplayer.media.MediaFile;
 import com.jplayer.view.controller.AppActivity;
 import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import org.kairos.core.Fragment;
 
 @SceneContent("playlist")
 public class PlayListController extends Fragment {
 
+    @FXML
+    private TableView<MediaFile> playList;
+
     @Override
     public void onCreateView(FXMLLoader fxmlLoader) {
         FxmlUtils.setupScene(fxmlLoader);
 
+        ObservableList<MediaFile> mediaFiles = activity().getMediaFiles();
+        playList.setItems(mediaFiles);
+        playList.getColumns().forEach(
+                c -> c.setCellValueFactory(new PropertyValueFactory<>(c.getId())));
+
     }
 
-    private MediaPlayer getPlayer() {
-        return ((AppActivity)getActivity()).getPlayer();
+    private AppActivity activity() {
+        return (AppActivity) getActivity();
+    }
+
+    @FXML
+    public void onTrackClicked(MouseEvent event) {
+        activity().getPlayer().play(playList.getSelectionModel().getSelectedItem());
     }
 
 }
