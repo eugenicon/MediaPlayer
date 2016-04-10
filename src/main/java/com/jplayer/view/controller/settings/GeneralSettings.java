@@ -1,18 +1,17 @@
 package com.jplayer.view.controller.settings;
 
 
+import com.jplayer.media.file.MediaReader;
+import com.jplayer.view.controller.AppActivity;
 import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import org.kairos.core.Fragment;
 
 import java.io.File;
-import java.util.HashMap;
 
 @SceneContent("generalSettings")
 public class GeneralSettings extends Fragment {
@@ -36,7 +35,13 @@ public class GeneralSettings extends Fragment {
 
     @FXML
     public void rescanLibrary(){
+        Thread thread = new Thread(() ->
+                new MediaReader(getApp().getMediaFiles()).readMedia(pathToLibraryField.getText()));
+        thread.start();
+    }
 
+    private AppActivity getApp() {
+        return (AppActivity) getActivity();
     }
 
 }

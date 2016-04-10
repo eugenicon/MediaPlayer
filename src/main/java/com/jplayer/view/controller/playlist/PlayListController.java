@@ -1,6 +1,6 @@
 package com.jplayer.view.controller.playlist;
 
-import com.jplayer.media.MediaFile;
+import com.jplayer.media.file.MediaFile;
 import com.jplayer.view.controller.AppActivity;
 import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import org.kairos.core.Fragment;
 
@@ -35,7 +36,9 @@ public class PlayListController extends Fragment {
 
     @FXML
     public void onTrackClicked(MouseEvent event) {
-        activity().getPlayer().play(playList.getSelectionModel().getSelectedItem());
+        if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() > 1) {
+            activity().getPlayer().play(playList.getSelectionModel().getSelectedItem());
+        }
     }
 
 }

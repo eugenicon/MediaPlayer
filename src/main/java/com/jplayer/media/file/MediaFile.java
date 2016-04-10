@@ -1,6 +1,5 @@
-package com.jplayer.media;
+package com.jplayer.media.file;
 
-import java.net.URI;
 import java.nio.file.Path;
 import java.time.Duration;
 
@@ -22,60 +21,64 @@ public class MediaFile {
         return duration;
     }
 
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
     public String getArtist() {
         return artist;
-    }
-
-    public String getAlbum() {
-        return album;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public int getTrackNumber() {
-        return trackNumber;
-    }
-
-    public Path getPath() {
-        return path;
-    }
-
-    public String getURI(){
-        return path.toUri().toString();
-    }
-
-    public void setPath(Path path) {
-        this.path = path;
     }
 
     public void setArtist(String artist) {
         this.artist = artist;
     }
 
+    public String getAlbum() {
+        return album;
+    }
+
     public void setAlbum(String album) {
         this.album = album;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public int getYear() {
+        return year;
+    }
+
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public int getTrackNumber() {
+        return trackNumber;
     }
 
     public void setTrackNumber(int trackNumber) {
         this.trackNumber = trackNumber;
     }
 
-    public void setDuration(Duration duration) {
-        this.duration = duration;
+    public Path getPath() {
+        return path;
+    }
+
+    public void setPath(Path path) {
+        this.path = path;
+    }
+
+    public String getFulName() {
+        return path.toString();
+    }
+
+    public String getURI() {
+        return path.toUri().toString();
     }
 
     public String getPrettyDuration() {

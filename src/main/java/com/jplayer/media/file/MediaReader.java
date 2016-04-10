@@ -1,4 +1,4 @@
-package com.jplayer.media;
+package com.jplayer.media.file;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;

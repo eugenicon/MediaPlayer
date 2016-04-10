@@ -1,4 +1,4 @@
-package com.jplayer.media;
+package com.jplayer.media.library;
 
 public enum Action {
     ADD, REMOVE

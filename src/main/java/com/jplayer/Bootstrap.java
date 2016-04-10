@@ -15,6 +15,7 @@ public class Bootstrap extends Application {
     public void start(Stage stage) throws Exception {
         FxmlUtils.startActivity(stage, AppActivity.class);
         FxmlUtils.addAppToTray(stage);
+        stage.setOnCloseRequest(event -> System.exit(0));
         stage.show();
     }
 

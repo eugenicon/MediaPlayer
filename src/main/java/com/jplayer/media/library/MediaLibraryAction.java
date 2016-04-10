@@ -1,4 +1,6 @@
-package com.jplayer.media;
+package com.jplayer.media.library;
+
+import com.jplayer.media.file.MediaFile;
 
 import java.util.Arrays;
 import java.util.Collection;

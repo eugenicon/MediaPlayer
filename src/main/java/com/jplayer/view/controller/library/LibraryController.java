@@ -1,7 +1,7 @@
 package com.jplayer.view.controller.library;
 
-import com.jplayer.media.MediaFile;
-import com.jplayer.media.MediaReader;
+import com.jplayer.media.file.MediaFile;
+import com.jplayer.media.file.MediaReader;
 import com.jplayer.view.controller.AppActivity;
 import com.jplayer.view.tmp.MediaViewHelper;
 import com.jplayer.view.util.fxml.FxmlUtils;
@@ -31,7 +31,7 @@ public class LibraryController extends Fragment {
         FxmlUtils.setupScene(fxmlLoader);
         if (getState() <= 1){
             scanService = new ScanService(((AppActivity) getActivity()).getMediaLibrary());
-            scanService.start();
+            //scanService.start();
         }
     }
 

@@ -1,16 +1,18 @@
 package com.fx.jplayer.media;
 
+import com.jplayer.media.file.MediaFile;
 import de.umass.lastfm.*;
 import de.umass.lastfm.scrobble.ScrobbleResult;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import com.jplayer.media.MediaFile;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.AudioHeader;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 /**
  * Unit test for simple App.
  */
+@RunWith(Parameterized.class)
 public class AppTest
         extends TestCase {
 

@@ -1,6 +1,6 @@
 package com.jplayer.view.tmp;
 
-import com.jplayer.media.MediaFile;
+import com.jplayer.media.file.MediaFile;
 import de.umass.lastfm.Artist;
 import de.umass.lastfm.ImageSize;
 import javafx.application.Platform;
