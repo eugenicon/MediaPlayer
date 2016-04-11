@@ -26,7 +26,7 @@ import java.io.InputStream;
 
 public class Player extends javazoom.jl.player.Player {
 
-    private JSoundAudioDevice audio = new JSoundAudioDevice();
+    private JSoundAudioDevice audio;
 
     public Player(InputStream stream) throws JavaLayerException {
         this(stream, new JSoundAudioDevice());
@@ -49,7 +49,9 @@ public class Player extends javazoom.jl.player.Player {
         audio.setVolume(volume);
     }
 
-    public int getCurrentStreamPosition() {
-        return audio.getPosition();
+    public void play(float volume) throws JavaLayerException {
+        audio.setVolume(volume);
+        super.play();
     }
+
 }

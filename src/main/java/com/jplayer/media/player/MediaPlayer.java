@@ -32,7 +32,7 @@ public class MediaPlayer extends Observable {
 
     private PlayerState playerState;
     private int streamTotalLength;
-    private int streamAvaliableLeft;
+    private int streamAvailableLeft;
     private InputStream stream;
 
     @SuppressWarnings({"InfiniteLoopStatement", "AccessStaticViaInstance"})
@@ -69,7 +69,7 @@ public class MediaPlayer extends Observable {
         releaseResources();
 
         if (playerState.equals(PlayerState.PAUSED) && mediaFile.equals(nowPlayed)) {
-            startPlaying(mediaFile, streamTotalLength - streamAvaliableLeft);
+            startPlaying(mediaFile, streamTotalLength - streamAvailableLeft);
         } else {
             startPlaying(mediaFile);
         }
@@ -101,8 +101,7 @@ public class MediaPlayer extends Observable {
         currentPosition = player.getPosition();
         playerThread = new Thread(() -> {
             try {
-                player.play();
-                player = null;
+                player.play((float) volume);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -115,6 +114,9 @@ public class MediaPlayer extends Observable {
     }
 
     private void updateCurrentPosition() {
+        if (playerState.equals(PlayerState.STOPPED)) {
+            return;
+        }
         double positionBeforeUpdate = getCurrentPosition();
         if (player != null) {
             currentPosition = player.getPosition();
@@ -143,10 +145,10 @@ public class MediaPlayer extends Observable {
         if (player != null) {
             try {
                 if (player.getPosition() == 0) {
-                    streamAvaliableLeft = 0;
+                    streamAvailableLeft = 0;
                     stoppedPosition = 0;
                 } else {
-                    streamAvaliableLeft = stream.available() + 14800;
+                    streamAvailableLeft = stream.available() + 14800;
                     stoppedPosition += player.getPosition();
                 }
                 player.close();
@@ -189,7 +191,7 @@ public class MediaPlayer extends Observable {
 
     public void stop() {
         releaseResources();
-        streamAvaliableLeft = 0;
+        streamAvailableLeft = 0;
         setPlayerState(PlayerState.STOPPED);
     }
 
