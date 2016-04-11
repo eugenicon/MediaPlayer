@@ -126,7 +126,6 @@ public class AppTest
             AudioHeader audioHeader = audioFile.getAudioHeader();
 
             mediaFile = new MediaFile(path);
-            mediaFile.setPath(path);
             mediaFile.setDuration(Duration.ofSeconds(audioHeader.getTrackLength()));
             mediaFile.setTitle(tag.getFirst(FieldKey.TITLE));
             mediaFile.setArtist(tag.getFirst(FieldKey.ARTIST));

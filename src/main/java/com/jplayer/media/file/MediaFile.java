@@ -6,7 +6,7 @@ import java.time.Duration;
 
 public class MediaFile implements Serializable {
 
-    private Path path;
+    private String path;
     private String artist;
     private String album;
     private String title;
@@ -15,7 +15,7 @@ public class MediaFile implements Serializable {
     private Duration duration;
 
     public MediaFile(Path path) {
-        this.path = path;
+        this.path = path.toString();
     }
 
     public Duration getDuration() {
@@ -66,20 +66,12 @@ public class MediaFile implements Serializable {
         this.trackNumber = trackNumber;
     }
 
-    public Path getPath() {
-        return path;
-    }
-
-    public void setPath(Path path) {
+    public void setPath(String path) {
         this.path = path;
     }
 
     public String getFulName() {
-        return path.toString();
-    }
-
-    public String getURI() {
-        return path.toUri().toString();
+        return path;
     }
 
     public String getPrettyDuration() {

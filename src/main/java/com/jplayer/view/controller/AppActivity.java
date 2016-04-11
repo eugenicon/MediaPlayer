@@ -67,7 +67,10 @@ public class AppActivity extends Activity {
     }
 
     private void setupLibrary() {
-        mediaLibrary = new MediaLibrary(FXCollections.observableArrayList());
+        mediaLibrary = MediaLibrary.loadSettings("./lib.jml", FXCollections.observableArrayList());
+        if (mediaLibrary == null) {
+            mediaLibrary = new MediaLibrary(FXCollections.observableArrayList());
+        }
     }
 
     private void setupPlayer() {

@@ -13,13 +13,15 @@ public class MediaLibrary extends Observable implements List<MediaFile>, Seriali
         this.mediaFiles = mediaFiles;
     }
 
-    public static MediaLibrary loadSettings(String path) {
+    @SuppressWarnings("unchecked")
+    public static MediaLibrary loadSettings(String path, List<MediaFile> mediaFiles) {
         File file = new File(path);
         if (file.exists()) {
             try (FileInputStream fis = new FileInputStream(path);
                  ObjectInputStream inputStream = new ObjectInputStream(fis)) {
                 {
-                    return (MediaLibrary) inputStream.readObject();
+                    mediaFiles.addAll((List<MediaFile>) inputStream.readObject());
+                    return new MediaLibrary(mediaFiles);
                 }
 
             } catch (Exception e) {
@@ -185,7 +187,8 @@ public class MediaLibrary extends Observable implements List<MediaFile>, Seriali
         try (FileOutputStream fos = new FileOutputStream(path);
              ObjectOutputStream outStream = new ObjectOutputStream(fos)) {
 
-            outStream.writeObject(this.mediaFiles.toArray());
+            List<MediaFile> array = new ArrayList<>(this.mediaFiles);
+            outStream.writeObject(array);
 
         } catch (Exception e) {
             e.printStackTrace();

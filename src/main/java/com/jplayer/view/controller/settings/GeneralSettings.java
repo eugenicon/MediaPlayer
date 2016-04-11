@@ -2,6 +2,7 @@ package com.jplayer.view.controller.settings;
 
 
 import com.jplayer.media.file.MediaReader;
+import com.jplayer.media.library.MediaLibrary;
 import com.jplayer.view.controller.AppActivity;
 import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
@@ -36,9 +37,10 @@ public class GeneralSettings extends Fragment {
     @FXML
     public void rescanLibrary(){
         Thread thread = new Thread(() -> {
-            new MediaReader(getApp().getMediaFiles()).readMedia(pathToLibraryField.getText());
-            //File currentDir = new File(".");
-            //getApp().getMediaLibrary().saveSettings(currentDir.getAbsolutePath() + "/lib.jml");
+            MediaLibrary mediaLibrary = getApp().getMediaLibrary();
+            mediaLibrary.clear();
+            new MediaReader(mediaLibrary.getContent()).readMedia(pathToLibraryField.getText());
+            mediaLibrary.saveSettings("./lib.jml");
         });
         thread.start();
     }
