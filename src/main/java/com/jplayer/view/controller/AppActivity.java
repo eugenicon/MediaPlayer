@@ -8,7 +8,8 @@ import com.jplayer.view.controller.playlist.PlayListController;
 import com.jplayer.view.controller.settings.SettingsController;
 import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
-import com.jplayer.view.util.widget.FragmentPager;
+import com.jplayer.view.util.widget.FragmentPagerAdapter;
+import com.jplayer.view.util.widget.ViewPager;
 import com.sun.media.jfxmedia.events.PlayerStateEvent;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -38,7 +39,7 @@ public class AppActivity extends Activity {
     private SlidingTabLayout tabLayout;
 
     @FXML
-    private org.kairos.layouts.ViewPager viewPager;
+    private ViewPager viewPager;
 
     @FXML
     private ProgressBar currentPosition;
@@ -86,11 +87,11 @@ public class AppActivity extends Activity {
         setWindowTitle(player.getNowPlayed().toString());
     }
 
-    private void onTimePlayedChanged(double duration) {
-        currentPosition.setProgress(duration / player.getTotalDuration());
-        Duration duration1 = Duration.ofMillis((long) duration);
-        Platform.runLater(() -> labelCurrentPosition.setText(String.format("%02d:%02d", duration1.toMinutes(),
-                duration1.minusMinutes(duration1.toMinutes()).getSeconds())));
+    private void onTimePlayedChanged(double durationInMills) {
+        currentPosition.setProgress(durationInMills / player.getTotalDuration());
+        Duration duration = Duration.ofMillis((long) durationInMills);
+        Platform.runLater(() -> labelCurrentPosition.setText(String.format("%02d:%02d", duration.toMinutes(),
+                duration.minusMinutes(duration.toMinutes()).getSeconds())));
     }
 
     private void setWindowTitle(String title) {
@@ -99,12 +100,12 @@ public class AppActivity extends Activity {
     }
 
     private void setupPager() {
-        FragmentPager pagerAdapter = new FragmentPager(getFragmentManager());
-        viewPager.setAdapter(pagerAdapter);
+        FragmentPagerAdapter pager = new FragmentPagerAdapter(getFragmentManager());
+        viewPager.setAdapter(pager);
 
-        pagerAdapter.addTab("Library", LibraryController.class);
-        pagerAdapter.addTab("Playlist", PlayListController.class);
-        pagerAdapter.addTab("Settings", SettingsController.class);
+        pager.addTab("Library", LibraryController.class);
+        pager.addTab("Playlist", PlayListController.class);
+        pager.addTab("Settings", SettingsController.class);
 
         tabLayout.setViewPager(viewPager);
         viewPager.setCurrentItem(0);
@@ -150,6 +151,10 @@ public class AppActivity extends Activity {
 
     public ObservableList<MediaFile> getMediaFiles() {
         return (ObservableList<MediaFile>) mediaLibrary.getContent();
+    }
+
+    public ViewPager getPager() {
+        return viewPager;
     }
 
 }

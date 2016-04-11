@@ -3,7 +3,7 @@ package com.jplayer.view.controller.settings;
 
 import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
-import com.jplayer.view.util.widget.FragmentPager;
+import com.jplayer.view.util.widget.FragmentPagerAdapter;
 import com.jplayer.view.util.widget.VerticalSlidingTabLayout;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +27,7 @@ public class SettingsController extends Fragment {
 
         if (getState() <= 1) {
 
-            FragmentPager pagerAdapter = new FragmentPager(getFragmentManager());
+            FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getFragmentManager());
             pagerAdapter.setContainer(viewPager);
             viewPager.setAdapter(pagerAdapter);
 

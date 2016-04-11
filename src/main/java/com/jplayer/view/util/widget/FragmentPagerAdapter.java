@@ -8,10 +8,15 @@ import org.kairos.core.FragmentManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FragmentPager extends FragmentStatePagerAdapter {
+public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     private Pane container;
     private ArrayList<Tab> tabs;
+
+    public FragmentPagerAdapter(FragmentManager fragmentManager) {
+        super(fragmentManager);
+        tabs = new ArrayList<>();
+    }
 
     public void setContainer(Pane container) {
         this.container = container;
@@ -26,9 +31,14 @@ public class FragmentPager extends FragmentStatePagerAdapter {
         return super.instantiateItem(container, position);
     }
 
-    public FragmentPager(FragmentManager fragmentManager) {
-        super(fragmentManager);
-        tabs=new ArrayList<>();
+    public int getFragmentIndex(Class<? extends Fragment> fragmentClass) {
+        for (int i = 0; i < tabs.size(); i++) {
+            Tab tab = tabs.get(i);
+            if (tab.fragment.equals(fragmentClass)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -67,11 +77,11 @@ public class FragmentPager extends FragmentStatePagerAdapter {
     }
 
     public void addTab(String tabLabel, Class<? extends Fragment> fragmentClass, HashMap arguments){
-        tabs.add(new FragmentPager.Tab(tabLabel, fragmentClass, arguments));
+        tabs.add(new FragmentPagerAdapter.Tab(tabLabel, fragmentClass, arguments));
     }
 
     public void addTab(String tabLabel, Class<? extends Fragment> fragmentClass){
-        tabs.add(new FragmentPager.Tab(tabLabel, fragmentClass));
+        tabs.add(new FragmentPagerAdapter.Tab(tabLabel, fragmentClass));
     }
 
     public static class Tab{
