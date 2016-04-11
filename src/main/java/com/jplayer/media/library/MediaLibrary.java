@@ -2,14 +2,31 @@ package com.jplayer.media.library;
 
 import com.jplayer.media.file.MediaFile;
 
+import java.io.*;
 import java.util.*;
 
-public class MediaLibrary extends Observable implements List<MediaFile> {
+public class MediaLibrary extends Observable implements List<MediaFile>, Serializable {
 
     private List<MediaFile> mediaFiles;
 
     public MediaLibrary(List<MediaFile> mediaFiles) {
         this.mediaFiles = mediaFiles;
+    }
+
+    public static MediaLibrary loadSettings(String path) {
+        File file = new File(path);
+        if (file.exists()) {
+            try (FileInputStream fis = new FileInputStream(path);
+                 ObjectInputStream inputStream = new ObjectInputStream(fis)) {
+                {
+                    return (MediaLibrary) inputStream.readObject();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     public List<MediaFile> getContent() {
@@ -163,5 +180,17 @@ public class MediaLibrary extends Observable implements List<MediaFile> {
         setChanged();
         notifyObservers(new MediaLibraryAction(action, mediaFiles));
     }
+
+    public void saveSettings(String path) {
+        try (FileOutputStream fos = new FileOutputStream(path);
+             ObjectOutputStream outStream = new ObjectOutputStream(fos)) {
+
+            outStream.writeObject(this.mediaFiles.toArray());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

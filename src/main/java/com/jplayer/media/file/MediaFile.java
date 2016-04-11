@@ -1,9 +1,10 @@
 package com.jplayer.media.file;
 
+import java.io.Serializable;
 import java.nio.file.Path;
 import java.time.Duration;
 
-public class MediaFile {
+public class MediaFile implements Serializable {
 
     private Path path;
     private String artist;

@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
-
 <!-- import all default layouts -->
 
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<HBox xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
-    <StackPane HBox.hgrow="ALWAYS" >
-        <Label fx:id="noContentLabel" text="No content in library" StackPane.alignment="CENTER" visible="false" />
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<HBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/null">
+    <StackPane HBox.hgrow="ALWAYS">
         <ScrollPane fitToHeight="true" fitToWidth="true" hmax="Infinity" maxWidth="Infinity" StackPane.alignment="CENTER">
 
-        <FlowPane fx:id="authorsPane" alignment="TOP_CENTER" columnHalignment="CENTER" hgap="20.0" vgap="20.0">
-            <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-            </padding>
+            <FlowPane fx:id="authorsPane" alignment="TOP_CENTER" columnHalignment="CENTER" hgap="20.0" vgap="20.0">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                </padding>
 
-        </FlowPane>
-    </ScrollPane>
-</StackPane>
+            </FlowPane>
+        </ScrollPane>
+        <VBox alignment="CENTER" StackPane.alignment="CENTER" fx:id="noContentNode" visible="false">
+            <StackPane.margin>
+                <Insets top="100.0"/>
+            </StackPane.margin>
+            <Label text="No content in library"/>
+            <Hyperlink text="Specify path to mediafiles" onAction="#onSpecifyPathToLibrary"/>
+
+        </VBox>
+    </StackPane>
 </HBox>

@@ -35,8 +35,11 @@ public class GeneralSettings extends Fragment {
 
     @FXML
     public void rescanLibrary(){
-        Thread thread = new Thread(() ->
-                new MediaReader(getApp().getMediaFiles()).readMedia(pathToLibraryField.getText()));
+        Thread thread = new Thread(() -> {
+            new MediaReader(getApp().getMediaFiles()).readMedia(pathToLibraryField.getText());
+            //File currentDir = new File(".");
+            //getApp().getMediaLibrary().saveSettings(currentDir.getAbsolutePath() + "/lib.jml");
+        });
         thread.start();
     }
 

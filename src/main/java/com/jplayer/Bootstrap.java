@@ -4,6 +4,7 @@ import com.jplayer.view.controller.AppActivity;
 import com.jplayer.view.util.fxml.FxmlUtils;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Bootstrap extends Application {
 
@@ -15,8 +16,12 @@ public class Bootstrap extends Application {
     public void start(Stage stage) throws Exception {
         FxmlUtils.startActivity(stage, AppActivity.class);
         FxmlUtils.addAppToTray(stage);
-        stage.setOnCloseRequest(event -> System.exit(0));
+        stage.setOnCloseRequest(this::onClose);
         stage.show();
+    }
+
+    private void onClose(WindowEvent event) {
+        System.exit(0);
     }
 
 }
