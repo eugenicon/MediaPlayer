@@ -41,6 +41,15 @@ public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
         return -1;
     }
 
+    public Tab getFragmentTab(Class<? extends Fragment> fragmentClass) {
+        for (Tab tab : tabs) {
+            if (tab.fragment.equals(fragmentClass)) {
+                return tab;
+            }
+        }
+        return Tab.EMPTY;
+    }
+
     @Override
     public Fragment getItem(int i) {
         try {
@@ -53,9 +62,7 @@ public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
 
             return tab.fragmentInstance;
 
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
 
@@ -72,10 +79,6 @@ public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
         return tabs.size();
     }
 
-    public void addTab(Tab tab){
-        tabs.add(tab);
-    }
-
     public void addTab(String tabLabel, Class<? extends Fragment> fragmentClass, HashMap arguments){
         tabs.add(new FragmentPagerAdapter.Tab(tabLabel, fragmentClass, arguments));
     }
@@ -84,7 +87,8 @@ public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
         tabs.add(new FragmentPagerAdapter.Tab(tabLabel, fragmentClass));
     }
 
-    public static class Tab{
+    public static class Tab {
+        public static final Tab EMPTY = new Tab("", null, null);
         protected String title;
         protected Class<? extends Fragment> fragment;
         protected Fragment fragmentInstance;

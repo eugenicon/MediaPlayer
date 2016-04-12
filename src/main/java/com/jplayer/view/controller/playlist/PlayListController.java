@@ -23,7 +23,12 @@ public class PlayListController extends Fragment {
     public void onCreateView(FXMLLoader fxmlLoader) {
         FxmlUtils.setupScene(fxmlLoader);
 
-        ObservableList<MediaFile> mediaFiles = activity().getMediaFiles();
+        ObservableList<MediaFile> mediaFiles;
+        if (getArguments().containsKey("filteredData")) {
+            mediaFiles = (ObservableList<MediaFile>) getArguments().get("filteredData");
+        } else {
+            mediaFiles = activity().getMediaFiles();
+        }
         playList.setItems(mediaFiles);
         playList.getColumns().forEach(
                 c -> c.setCellValueFactory(new PropertyValueFactory<>(c.getId())));
