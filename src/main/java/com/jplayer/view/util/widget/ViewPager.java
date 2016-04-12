@@ -2,6 +2,7 @@ package com.jplayer.view.util.widget;
 
 import java.util.HashMap;
 
+@SuppressWarnings("unchecked")
 public class ViewPager extends org.kairos.layouts.ViewPager {
     public void setCurrentItem(Class fragmentClass) {
         int index = ((FragmentPagerAdapter) getAdapter()).getFragmentIndex(fragmentClass);

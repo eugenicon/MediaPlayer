@@ -19,6 +19,7 @@ public class PlayListController extends Fragment {
     @FXML
     private TableView<MediaFile> playList;
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onCreateView(FXMLLoader fxmlLoader) {
         FxmlUtils.setupScene(fxmlLoader);
