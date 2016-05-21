@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
+            xmlns="http://javafx.com/javafx/null">
+
+    <BorderPane opacity="0.61" prefHeight="100.0" prefWidth="180.0">
+        <center>
+            <Label id="label" alignment="CENTER" contentDisplay="CENTER" minWidth="128.0" prefHeight="128.0"
+                   prefWidth="128.0" text="Long artist name - Rather Long Track Name" textAlignment="CENTER"
+                   wrapText="true" BorderPane.alignment="CENTER"/>
+        </center>
+        <left>
+            <ImageView id="image" fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true"
+                       BorderPane.alignment="CENTER">
+                <viewport>
+                    <Rectangle2D/>
+                </viewport>
+            </ImageView>
+        </left>
+    </BorderPane>
+
+</AnchorPane>

@@ -88,6 +88,9 @@ public class AppActivity extends Activity {
 
     private void onPlayedTrackChanged(PlayerStateEvent event) {
         setWindowTitle(player.getNowPlayed().toString());
+        if (event.getState().equals(PlayerState.PLAYING)) {
+            Popup.show(player.getNowPlayed());
+        }
     }
 
     private void onTimePlayedChanged(double durationInMills) {
@@ -112,16 +115,12 @@ public class AppActivity extends Activity {
 
         tabLayout.setViewPager(viewPager);
         viewPager.setCurrentItem(0);
-
     }
 
     @FXML
     public void onSoundScroll(ScrollEvent event) {
-        if (event.getDeltaY() < 0) {
-            seekVolume(-0.05, soundBar);
-        } else {
-            seekVolume(0.05, soundBar);
-        }
+        player.seekVolume(event.getDeltaY() < 0 ? -0.05 : 0.05);
+        soundBar.setProgress(player.getVolume());
     }
 
     @FXML
@@ -139,11 +138,6 @@ public class AppActivity extends Activity {
         }
     }
 
-    private void seekVolume(double value, ProgressBar soundBar) {
-        player.seekVolume(value);
-        soundBar.setProgress(player.getVolume());
-    }
-
     public MediaPlayer getPlayer() {
         return player;
     }
@@ -159,5 +153,4 @@ public class AppActivity extends Activity {
     public ViewPager getPager() {
         return viewPager;
     }
-
 }
