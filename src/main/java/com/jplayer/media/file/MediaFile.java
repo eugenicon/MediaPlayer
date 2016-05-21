@@ -27,7 +27,7 @@ public class MediaFile implements Serializable {
     }
 
     public String getArtist() {
-        return artist;
+        return artist == null ? "" : artist;
     }
 
     public void setArtist(String artist) {
@@ -86,5 +86,4 @@ public class MediaFile implements Serializable {
     public String toString() {
         return String.format("%s - %s (%s)", artist, title, getPrettyDuration());
     }
-
 }

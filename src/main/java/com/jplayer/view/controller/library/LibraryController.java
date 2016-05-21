@@ -60,16 +60,16 @@ public class LibraryController extends Fragment {
 
         authorsPane.getChildren().clear();
 
-        for (Map.Entry<String, String> entry : authors.entrySet()) {
+        authors.entrySet().stream().filter(entry -> !entry.getValue().isEmpty()).forEach(entry -> {
             Label label = new Label(entry.getKey());
             ImageView pane = new ImageView(entry.getValue());
             VBox vBox = new VBox();
             vBox.getChildren().addAll(pane, label);
             vBox.setMaxWidth(128);
-            vBox.setCursor(Cursor.OPEN_HAND);
+            vBox.setCursor(Cursor.HAND);
             vBox.setOnMouseClicked(e -> onAuthorSelected(entry));
             Platform.runLater(() -> authorsPane.getChildren().add(vBox));
-        }
+        });
     }
 
     private void onAuthorSelected(Map.Entry<String, String> entry) {
@@ -84,6 +84,9 @@ public class LibraryController extends Fragment {
     }
 
     private String getImage(String author) {
+        if (author.isEmpty()) {
+            return "";
+        }
         String key = "a60e68714a3cdf0ae6a558ae64346e6e";
         AdvancedArtistInfo artist = new AdvancedArtistInfo(Artist.getInfo(author, key));
         List<String> imageURLs = artist.getImageURLs();

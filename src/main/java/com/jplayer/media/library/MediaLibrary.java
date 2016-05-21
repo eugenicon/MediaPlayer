@@ -194,6 +194,4 @@ public class MediaLibrary extends Observable implements List<MediaFile>, Seriali
             e.printStackTrace();
         }
     }
-
-
 }

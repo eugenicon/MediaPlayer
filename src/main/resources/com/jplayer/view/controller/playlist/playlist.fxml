@@ -2,13 +2,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/null">
-    <TableView fx:id="playList" onMouseClicked="#onTrackClicked">
+    <TableView fx:id="playList" onMouseClicked="#onTrackClicked" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn prefWidth="10.0" text="#" id="trackNumber"/>
-            <TableColumn prefWidth="75.0" text="Title" id="title"/>
-            <TableColumn prefWidth="75.0" text="Artist" id="artist"/>
-            <TableColumn prefWidth="75.0" text="Album" id="album"/>
-            <TableColumn prefWidth="75.0" text="Duration" id="prettyDuration"/>
+            <TableColumn text="#" id="trackNumber"/>
+            <TableColumn text="Title" id="title"/>
+            <TableColumn text="Artist" id="artist"/>
+            <TableColumn text="Album" id="album"/>
+            <TableColumn text="Duration" id="prettyDuration"/>
         </columns>
         <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>

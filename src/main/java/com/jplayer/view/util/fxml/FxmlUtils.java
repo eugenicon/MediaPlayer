@@ -41,25 +41,29 @@ public class FxmlUtils {
             String resourcePath = getResourcePath(activityClass);
             URL resource = activityClass.getResource(resourcePath);
             try {
-                InputStream inputStream = prepareFragmentXML(resource.openStream(), controller);
-                if (inputStream != null){
-                    Node root = fxmlLoader.load(inputStream);
-
-                    if (controller instanceof Activity) {
-                        Context context = ReflectionUtils.getObjectField(controller, "context");
-                        SimpleWindowManager window = ReflectionUtils.getObjectField(context, "window");
-                        ObservableList<Node> windowPane = ReflectionUtils.getObjectField(window, "windowPane");
-                        assert windowPane != null;
-                        windowPane.add(root);
-                    }
-
-                }else {
-                    fxmlLoader.setLocation(resource);
-                    fxmlLoader.load();
-                }
+                loadFxmlContent(fxmlLoader, resource, controller);
             } catch (Exception e) {
                 throw new IllegalStateException("Unable to load resource " + resourcePath, e);
             }
+        }
+    }
+
+    private static void loadFxmlContent(FXMLLoader fxmlLoader, URL resource, Object controller) throws IOException {
+        InputStream inputStream = prepareFragmentXML(resource.openStream(), controller);
+        if (inputStream != null) {
+            Node root = fxmlLoader.load(inputStream);
+
+            if (controller instanceof Activity) {
+                Context context = ReflectionUtils.getObjectField(controller, "context");
+                SimpleWindowManager window = ReflectionUtils.getObjectField(context, "window");
+                ObservableList<Node> windowPane = ReflectionUtils.getObjectField(window, "windowPane");
+                assert windowPane != null;
+                windowPane.add(root);
+            }
+
+        } else {
+            fxmlLoader.setLocation(resource);
+            fxmlLoader.load();
         }
     }
 
