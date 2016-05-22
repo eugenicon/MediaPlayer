@@ -42,7 +42,7 @@ public class MediaPlayer extends Observable {
             while (true) {
                 updateCurrentPosition();
                 try {
-                    statusThread.sleep(300);
+                    statusThread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -102,6 +102,9 @@ public class MediaPlayer extends Observable {
         playerThread = new Thread(() -> {
             try {
                 player.play((float) volume);
+                if (player.isComplete()) {
+                    setPlayerState(PlayerState.FINISHED);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -152,7 +155,7 @@ public class MediaPlayer extends Observable {
                     stoppedPosition += player.getPosition();
                 }
                 player.close();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             player = null;
@@ -203,6 +206,7 @@ public class MediaPlayer extends Observable {
     }
 
     private void setPlayerState(PlayerState playerState) {
+        System.out.println(playerState);
         this.playerState = playerState;
         notifyStateListeners(this.playerState);
     }

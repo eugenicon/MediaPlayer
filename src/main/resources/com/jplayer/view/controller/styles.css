@@ -6,3 +6,8 @@
 .sliding-tab-layout .button .ripple{
     -fx-fill: white;
 }
+
+.nowPlayed {
+	-fx-font-weight: bold;
+}
+

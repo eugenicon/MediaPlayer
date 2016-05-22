@@ -1,7 +1,7 @@
 package com.jplayer.view.controller.settings;
 
 
-import com.jplayer.view.controller.LastFMScrobbler;
+import com.jplayer.media.LastFMScrobbler;
 import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
 import javafx.fxml.FXML;

@@ -1,4 +1,4 @@
-package com.jplayer.view.controller;
+package com.jplayer.media;
 
 import com.jplayer.media.file.MediaFile;
 import de.umass.lastfm.*;

@@ -168,7 +168,7 @@ public class FxmlUtils {
 
         // set the material design style in your application
         stage.getScene().getStylesheets().add(MaterialButton.class.getResource("controls.css").toExternalForm());
-        //stage.getScene().getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        stage.getScene().getStylesheets().add(activityClass.getResource("styles.css").toExternalForm());
 
         factory.startActivity(activityClass); // start the activity
     }

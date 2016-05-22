@@ -26,7 +26,7 @@
                             <Insets/>
                         </opaqueInsets>
                     </Button>
-                    <Button layoutX="113.0" mnemonicParsing="false" text="&gt;&gt;"/>
+                    <Button onAction="#onNextButtonClicked" layoutX="113.0" mnemonicParsing="false" text="&gt;&gt;"/>
                     <ProgressBar fx:id="soundBar" layoutX="153.0" layoutY="9.0" minHeight="11.0" minWidth="11.0"
                                  onMouseClicked="#onSoundClicked" onScroll="#onSoundScroll" prefHeight="11.0"
                                  prefWidth="50.0" progress="0.72"/>

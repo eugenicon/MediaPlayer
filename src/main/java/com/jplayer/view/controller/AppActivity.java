@@ -1,5 +1,6 @@
 package com.jplayer.view.controller;
 
+import com.jplayer.media.LastFMScrobbler;
 import com.jplayer.media.file.MediaFile;
 import com.jplayer.media.library.MediaLibrary;
 import com.jplayer.media.player.MediaPlayer;
@@ -26,6 +27,7 @@ import org.kairos.core.Activity;
 import org.kairos.layouts.SlidingTabLayout;
 
 import java.time.Duration;
+import java.util.Iterator;
 
 import static com.sun.media.jfxmedia.events.PlayerStateEvent.PlayerState;
 
@@ -53,6 +55,7 @@ public class AppActivity extends Activity {
     private MediaPlayer player;
 
     private MediaLibrary mediaLibrary;
+    private Iterator<MediaFile> libIterator;
 
     @Override
     public void onCreate() {
@@ -66,11 +69,16 @@ public class AppActivity extends Activity {
         setupPager();
     }
 
+    public void setLibIterator(Iterator<MediaFile> libIterator) {
+        this.libIterator = libIterator;
+    }
+
     private void setupLibrary() {
         mediaLibrary = MediaLibrary.loadSettings("./lib.jml", FXCollections.observableArrayList());
         if (mediaLibrary == null) {
             mediaLibrary = new MediaLibrary(FXCollections.observableArrayList());
         }
+        libIterator = mediaLibrary.iterator();
     }
 
     private void setupPlayer() {
@@ -89,7 +97,10 @@ public class AppActivity extends Activity {
     private void onPlayedTrackChanged(PlayerStateEvent event) {
         setWindowTitle(player.getNowPlayed().toString());
         if (event.getState().equals(PlayerState.PLAYING)) {
-            Popup.show(player.getNowPlayed());
+            LastFMScrobbler.scrobble(player.getNowPlayed());
+            Platform.runLater(() -> Popup.show(player.getNowPlayed()));
+        } else if (event.getState().equals(PlayerState.FINISHED)) {
+            playNext();
         }
     }
 
@@ -102,7 +113,7 @@ public class AppActivity extends Activity {
 
     private void setWindowTitle(String title) {
         Stage window = (Stage) toolbar.getScene().getWindow();
-        window.setTitle(title);
+        Platform.runLater(() -> window.setTitle(title));
     }
 
     private void setupPager() {
@@ -135,6 +146,19 @@ public class AppActivity extends Activity {
             player.play();
         } else {
             player.pause();
+        }
+    }
+
+    @FXML
+    public void onNextButtonClicked(ActionEvent event) {
+        playNext();
+    }
+
+    private void playNext() {
+        if (libIterator.hasNext()) {
+            MediaFile file = libIterator.next();
+            System.out.println(file);
+            player.play(file);
         }
     }
 

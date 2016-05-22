@@ -1,6 +1,7 @@
 package com.jplayer.view.controller;
 
 import com.jplayer.Bootstrap;
+import com.jplayer.media.LastFMScrobbler;
 import com.jplayer.media.file.MediaFile;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;

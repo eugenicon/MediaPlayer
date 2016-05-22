@@ -1,8 +1,8 @@
 package com.jplayer.view.controller.library;
 
+import com.jplayer.media.LastFMScrobbler;
 import com.jplayer.media.file.MediaFile;
 import com.jplayer.view.controller.AppActivity;
-import com.jplayer.view.controller.LastFMScrobbler;
 import com.jplayer.view.controller.playlist.PlayListController;
 import com.jplayer.view.controller.settings.SettingsController;
 import com.jplayer.view.util.fxml.FxmlUtils;
