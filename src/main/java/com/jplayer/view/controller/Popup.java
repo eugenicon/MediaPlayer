@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
@@ -32,8 +33,12 @@ public class Popup {
         Label label = (Label) node.lookup("#label");
         label.setText(mediaFile.toString());
 
-        ImageView imageView = (ImageView) node.getScene().lookup("#image");
-
+        ImageView imageView = (ImageView) node.lookup("#image");
+        String url = LastFMScrobbler.getImage(mediaFile.getArtist(), mediaFile.getAlbum());
+        if (url.isEmpty()) {
+            imageView.setImage(new Image(LastFMScrobbler.getImage(mediaFile.getArtist())));
+        } else {
+            imageView.setImage(new Image(url));
+        }
     }
-
 }

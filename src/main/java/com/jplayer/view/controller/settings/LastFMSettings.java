@@ -1,6 +1,7 @@
 package com.jplayer.view.controller.settings;
 
 
+import com.jplayer.view.controller.LastFMScrobbler;
 import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
 import javafx.fxml.FXML;
@@ -36,7 +37,7 @@ public class LastFMSettings extends Fragment {
     }
 
     public void connect(){
-        System.out.println(userField.getText());
+        LastFMScrobbler.initSession(userField.getText(), passwordField.getText());
     }
 
     public void userCredinialsChanged(){
