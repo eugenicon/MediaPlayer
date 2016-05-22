@@ -72,7 +72,7 @@ public class PlayListController extends Fragment {
                 protected void updateItem(T item, boolean empty) {
                     super.updateItem(item, empty);
 
-                    if (getTableRow() != null) {
+                    if (getTableRow() != null && !empty) {
                         getStyleClass().remove(nowPlayedStyle);
 
                         if (getTableRow().getItem() == activity().getPlayer().getNowPlayed()) {
