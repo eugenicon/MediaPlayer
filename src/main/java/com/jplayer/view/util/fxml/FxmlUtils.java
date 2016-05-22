@@ -198,6 +198,12 @@ public class FxmlUtils {
 
     }
 
+    public static void addIcon(Stage stage, String... icons) {
+        for (String path : icons) {
+            stage.getIcons().add(new Image(path));
+        }
+    }
+
     private static void showStage(Stage stage) {
         if (stage != null) {
             stage.show();
@@ -205,5 +211,4 @@ public class FxmlUtils {
             stage.toFront();
         }
     }
-
 }
