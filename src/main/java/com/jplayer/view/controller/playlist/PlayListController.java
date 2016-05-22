@@ -5,6 +5,7 @@ import com.jplayer.view.controller.AppActivity;
 import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableCell;
@@ -16,6 +17,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import org.kairos.core.Fragment;
 
+import java.awt.*;
+import java.io.File;
 import java.util.ListIterator;
 
 @SceneContent("playlist")
@@ -66,6 +69,18 @@ public class PlayListController extends Fragment {
         }
     }
 
+    @FXML
+    public void showInFolder(ActionEvent event) throws Exception {
+        MediaFile mediaFile = playList.getSelectionModel().getSelectedItem();
+        if (mediaFile != null) {
+            if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                Runtime.getRuntime().exec("explorer.exe /select," + mediaFile.getPath());
+            } else {
+                Desktop.getDesktop().open(new File(mediaFile.getPath()).getParentFile());
+            }
+        }
+    }
+
     private class FormattedTableCellFactory<S, T> implements Callback<TableColumn<S, T>, TableCell<S, T>> {
 
         @Override
@@ -93,4 +108,3 @@ public class PlayListController extends Fragment {
         }
     }
 }
-

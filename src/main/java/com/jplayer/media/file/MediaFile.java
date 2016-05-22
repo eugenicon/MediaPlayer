@@ -66,10 +66,6 @@ public class MediaFile implements Serializable {
         this.trackNumber = trackNumber;
     }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
-
     public String getFulName() {
         return path;
     }
@@ -80,6 +76,14 @@ public class MediaFile implements Serializable {
         }
         return String.format("%02d:%02d", duration.toMinutes(),
                 duration.minusMinutes(duration.toMinutes()).getSeconds());
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     @Override

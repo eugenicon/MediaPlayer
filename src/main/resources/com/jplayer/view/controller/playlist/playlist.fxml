@@ -14,5 +14,12 @@
         <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
         </columnResizePolicy>
+        <contextMenu>
+            <ContextMenu>
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#showInFolder" text="Show in folder"/>
+                </items>
+            </ContextMenu>
+        </contextMenu>
     </TableView>
 </VBox>

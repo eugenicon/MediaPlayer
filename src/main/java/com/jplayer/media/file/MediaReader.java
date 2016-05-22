@@ -70,7 +70,15 @@ public class MediaReader {
             mediaFile.setTrackNumber(Integer.parseInt(tag.getFirst(FieldKey.TRACK)));
 
         } catch (Exception ignored) {
-
+            if (mediaFile.getTitle() == null) {
+                mediaFile.setTitle(path.getFileName().toString());
+            }
+            if (mediaFile.getArtist() == null) {
+                mediaFile.setArtist("");
+            }
+            if (mediaFile.getAlbum() == null) {
+                mediaFile.setAlbum("");
+            }
         }
 
         return mediaFile;
