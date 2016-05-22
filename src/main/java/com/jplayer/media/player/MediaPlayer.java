@@ -206,7 +206,6 @@ public class MediaPlayer extends Observable {
     }
 
     private void setPlayerState(PlayerState playerState) {
-        System.out.println(playerState);
         this.playerState = playerState;
         notifyStateListeners(this.playerState);
     }

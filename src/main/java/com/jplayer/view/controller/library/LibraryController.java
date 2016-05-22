@@ -22,6 +22,7 @@ import org.kairos.core.Fragment;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 @SceneContent("library")
@@ -42,14 +43,17 @@ public class LibraryController extends Fragment {
             showAuthors(authorImages);
             noContentNode.setVisible(authorImages.isEmpty());
         }
-
     }
 
     private Map<String, String> prepareAuthorImages(List<MediaFile> mediaFiles) {
         return mediaFiles.stream()
                 .map(MediaFile::getArtist)
                 .distinct().sorted()
-                .collect(Collectors.toMap(author -> author, LastFMScrobbler::getImage));
+                .collect(Collectors.toMap(author -> author, LastFMScrobbler::getImage,
+                        (k, v) -> {
+                            throw new RuntimeException(String.format("Duplicate key %s", k));
+                        }
+                        , TreeMap::new));
     }
 
     private void showAuthors(Map<String, String> authors) {
@@ -80,7 +84,6 @@ public class LibraryController extends Fragment {
 
         activity().getPager().setCurrentItem(PlayListController.class, arguments);
     }
-
 
     @FXML
     public void onSpecifyPathToLibrary() {

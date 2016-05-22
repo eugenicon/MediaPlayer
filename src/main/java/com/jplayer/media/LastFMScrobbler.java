@@ -14,7 +14,7 @@ public class LastFMScrobbler {
             return "";
         }
         Artist artistInfo = Artist.getInfo(author, KEY);
-        return artistInfo.getImageURL(ImageSize.LARGE);
+        return getImage(artistInfo, ImageSize.LARGE);
     }
 
 
@@ -23,7 +23,15 @@ public class LastFMScrobbler {
             return "";
         }
         Album albumInfo = Album.getInfo(author, album, KEY);
-        return albumInfo.getImageURL(ImageSize.LARGE);
+        return getImage(albumInfo, ImageSize.LARGE);
+    }
+
+    private static String getImage(MusicEntry entry, ImageSize size) {
+        try {
+            return entry.getImageURL(size);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public static Session initSession(String userName, String password) {

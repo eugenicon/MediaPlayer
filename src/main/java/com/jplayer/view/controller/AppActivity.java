@@ -156,9 +156,7 @@ public class AppActivity extends Activity {
 
     private void playNext() {
         if (libIterator.hasNext()) {
-            MediaFile file = libIterator.next();
-            System.out.println(file);
-            player.play(file);
+            player.play(libIterator.next());
         }
     }
 

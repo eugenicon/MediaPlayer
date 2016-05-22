@@ -4,7 +4,6 @@ import com.jplayer.Bootstrap;
 import com.jplayer.media.LastFMScrobbler;
 import com.jplayer.media.file.MediaFile;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -23,13 +22,9 @@ public class Popup {
             e.printStackTrace();
         }
         Notifications notification = Notifications.create()
-                //.title("Title Text")
-                //.text("text")
                 .graphic(node)
                 .hideAfter(Duration.seconds(5))
-                .position(Pos.BOTTOM_RIGHT)
                 .onAction(event -> System.out.println("Notification clicked on!"));
-        notification.show();
 
         Label label = (Label) node.lookup("#label");
         label.setText(mediaFile.toString());
@@ -41,5 +36,7 @@ public class Popup {
         } else {
             imageView.setImage(new Image(url));
         }
+
+        notification.show();
     }
 }

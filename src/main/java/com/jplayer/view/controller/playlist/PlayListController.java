@@ -30,12 +30,20 @@ public class PlayListController extends Fragment {
     public void onCreateView(FXMLLoader fxmlLoader) {
         FxmlUtils.setupScene(fxmlLoader);
 
+        ObservableList<MediaFile> filteredData;
         if (getArguments().containsKey("filteredData")) {
-            mediaFiles = (ObservableList<MediaFile>) getArguments().get("filteredData");
+            filteredData = (ObservableList<MediaFile>) getArguments().get("filteredData");
         } else {
-            mediaFiles = activity().getMediaFiles();
+            filteredData = activity().getMediaFiles();
         }
 
+        if (filteredData != mediaFiles) {
+            setupPlaylist(filteredData);
+        }
+    }
+
+    private void setupPlaylist(ObservableList<MediaFile> filteredData) {
+        mediaFiles = filteredData;
         activity().setLibIterator(mediaFiles.iterator());
 
         playList.setItems(mediaFiles);
@@ -43,7 +51,6 @@ public class PlayListController extends Fragment {
             column.setCellFactory(new FormattedTableCellFactory());
             column.setCellValueFactory(new PropertyValueFactory<>(column.getId()));
         });
-
     }
 
     private AppActivity activity() {
