@@ -75,9 +75,6 @@ public class AppActivity extends Activity {
 
     private void setupLibrary() {
         mediaLibrary = MediaLibrary.loadSettings("./lib.jml", FXCollections.observableArrayList());
-        if (mediaLibrary == null) {
-            mediaLibrary = new MediaLibrary(FXCollections.observableArrayList());
-        }
         libIterator = mediaLibrary.iterator();
     }
 
@@ -118,14 +115,14 @@ public class AppActivity extends Activity {
 
     private void setupPager() {
         FragmentPagerAdapter pager = new FragmentPagerAdapter(getFragmentManager());
-        viewPager.setAdapter(pager);
 
         pager.addTab("Library", LibraryController.class);
         pager.addTab("Playlist", PlayListController.class);
         pager.addTab("Settings", SettingsController.class);
 
-        tabLayout.setViewPager(viewPager);
+        viewPager.setAdapter(pager);
         viewPager.setCurrentItem(0);
+        tabLayout.setViewPager(viewPager);
     }
 
     @FXML

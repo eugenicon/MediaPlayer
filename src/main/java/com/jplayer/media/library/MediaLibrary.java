@@ -17,18 +17,14 @@ public class MediaLibrary extends Observable implements List<MediaFile>, Seriali
     public static MediaLibrary loadSettings(String path, List<MediaFile> mediaFiles) {
         File file = new File(path);
         if (file.exists()) {
-            try (FileInputStream fis = new FileInputStream(path);
-                 ObjectInputStream inputStream = new ObjectInputStream(fis)) {
-                {
-                    mediaFiles.addAll((List<MediaFile>) inputStream.readObject());
-                    return new MediaLibrary(mediaFiles);
-                }
-
+            try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path))) {
+                mediaFiles.addAll((List<MediaFile>) inputStream.readObject());
+                return new MediaLibrary(mediaFiles);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return null;
+        return new MediaLibrary(mediaFiles);
     }
 
     public List<MediaFile> getContent() {

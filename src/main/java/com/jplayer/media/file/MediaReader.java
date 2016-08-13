@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,30 +22,19 @@ public class MediaReader {
     public static final String DEFAULT_MEDIA_EXTENSION = "wav|mp3|mp4";
 
     static {
-        Logger loggerTagger = Logger.getLogger("org.jaudiotagger");
-        loggerTagger.setLevel(Level.OFF);
+        Logger.getLogger("org.jaudiotagger").setLevel(Level.OFF);
     }
 
-    private final List<MediaFile> mediaFiles;
-
-    public MediaReader(List<MediaFile> mediaFiles) {
-        this.mediaFiles = mediaFiles;
-    }
-
-    public List<MediaFile> readMedia(Path root) {
-        return readMedia(root, DEFAULT_MEDIA_EXTENSION);
-    }
-
-    public List<MediaFile> readMedia(String root) {
+    public static List<MediaFile> readMedia(String root) {
         return readMedia(Paths.get(root), DEFAULT_MEDIA_EXTENSION);
     }
 
-    public List<MediaFile> readMedia(Path root, String extensions) {
-
+    public static List<MediaFile> readMedia(Path root, String extensions) {
+        List<MediaFile> mediaFiles = new ArrayList<>();
         try {
             Files.walk(root)
                     .filter(path -> path.toString().matches(".*\\.(" + extensions + ")"))
-                    .map(this::readMediaFile)
+                    .map(MediaReader::readMediaFile)
                     .collect(Collectors.toCollection(() -> mediaFiles));
 
         } catch (IOException e) {
@@ -54,7 +44,7 @@ public class MediaReader {
         return mediaFiles;
     }
 
-    public MediaFile readMediaFile(Path path) {
+    private static MediaFile readMediaFile(Path path) {
         MediaFile mediaFile = new MediaFile(path);
 
         try {

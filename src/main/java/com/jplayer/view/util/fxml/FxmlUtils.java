@@ -22,29 +22,27 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FxmlUtils {
-    public static void setupScene(Activity activity){
+    public static void setupScene(Activity activity) {
         Class<?> activityClass = activity.getClass();
         URL resourcePath = activityClass.getResource(getResourcePath(activityClass));
         try {
             FXMLLoader loader = new FXMLLoader(resourcePath);
             loader.setController(activity);
             FxmlUtils.setupScene(loader);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new IllegalStateException("Unable to load resource " + resourcePath, e);
         }
     }
 
-    public static void setupScene(FXMLLoader fxmlLoader){
+    public static void setupScene(FXMLLoader fxmlLoader) {
         Object controller = fxmlLoader.getController();
-        if (needsSetup(controller)) {
-            Class<?> activityClass = controller.getClass();
-            String resourcePath = getResourcePath(activityClass);
-            URL resource = activityClass.getResource(resourcePath);
-            try {
-                loadFxmlContent(fxmlLoader, resource, controller);
-            } catch (Exception e) {
-                throw new IllegalStateException("Unable to load resource " + resourcePath, e);
-            }
+        Class<?> activityClass = controller.getClass();
+        String resourcePath = getResourcePath(activityClass);
+        URL resource = activityClass.getResource(resourcePath);
+        try {
+            loadFxmlContent(fxmlLoader, resource, controller);
+        } catch (Exception e) {
+            throw new IllegalStateException("Unable to load resource " + resourcePath, e);
         }
     }
 
@@ -67,16 +65,11 @@ public class FxmlUtils {
         }
     }
 
-
-    private static boolean needsSetup(Object controller) {
-        return !(controller instanceof Fragment) || ((Fragment) controller).getState() <= 1;
-    }
-
     private static String getResourcePath(Class<?> activityClass) {
         SceneContent sceneContent = activityClass.getAnnotation(SceneContent.class);
         String value = sceneContent.value();
         String fxmlExtension = ".fxml";
-        if (!value.endsWith(fxmlExtension)){
+        if (!value.endsWith(fxmlExtension)) {
             value += fxmlExtension;
         }
         return value;
@@ -153,13 +146,13 @@ public class FxmlUtils {
                     "\n<VBox AnchorPane.topAnchor=\"0\" AnchorPane.rightAnchor=\"0\"\n" +
                     " AnchorPane.bottomAnchor=\"0\" AnchorPane.leftAnchor=\"0\">";
             String completeTail = "\n</VBox>\n</fx:root>";
-            sb.insert(sb.lastIndexOf("?>")+3, completeRoot);
+            sb.insert(sb.lastIndexOf("?>") + 3, completeRoot);
             sb.append(completeTail);
         }
         return sb;
     }
 
-    public static void startActivity(Stage stage, Class<? extends Activity> activityClass){
+    public static void startActivity(Stage stage, Class<? extends Activity> activityClass) {
         StackPane root = new StackPane(); // Create root pane
         stage.setScene(new Scene(root)); // Set the scene in the stage
 
@@ -176,22 +169,19 @@ public class FxmlUtils {
     public static void addAppToTray(Stage stage) {
 
         try {
-            if (stage.getIcons().isEmpty()){
-                return;
+            if (!stage.getIcons().isEmpty()) {
+                java.awt.SystemTray tray = java.awt.SystemTray.getSystemTray();
+                Image icon = stage.getIcons().get(0);
+                java.awt.Image image = javafx.embed.swing.SwingFXUtils.fromFXImage(icon, null);
+                java.awt.TrayIcon trayIcon = new java.awt.TrayIcon(image);
+
+                trayIcon.addActionListener(e -> Platform.runLater(() -> showStage(stage)));
+                trayIcon.setToolTip(stage.getTitle());
+
+                tray.add(trayIcon);
+
+                stage.setOnCloseRequest(event -> tray.remove(trayIcon));
             }
-
-            java.awt.SystemTray tray = java.awt.SystemTray.getSystemTray();
-            Image icon = stage.getIcons().get(0);
-            java.awt.Image image = javafx.embed.swing.SwingFXUtils.fromFXImage(icon, null);
-            java.awt.TrayIcon trayIcon = new java.awt.TrayIcon(image);
-
-            trayIcon.addActionListener(e -> Platform.runLater(() -> showStage(stage)));
-            trayIcon.setToolTip(stage.getTitle());
-
-            tray.add(trayIcon);
-
-            stage.setOnCloseRequest(event -> tray.remove(trayIcon));
-
         } catch (Exception e) {
             e.printStackTrace();
         }

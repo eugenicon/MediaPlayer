@@ -1,19 +1,17 @@
 package com.jplayer.view.controller.settings;
 
-
-import com.jplayer.view.util.fxml.FxmlUtils;
+import com.jplayer.view.controller.AppActivity;
 import com.jplayer.view.util.fxml.SceneContent;
+import com.jplayer.view.util.widget.ActivityFragment;
 import com.jplayer.view.util.widget.FragmentPagerAdapter;
 import com.jplayer.view.util.widget.VerticalSlidingTabLayout;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import org.kairos.core.Fragment;
 import org.kairos.layouts.ViewPager;
 
 import java.util.HashMap;
 
 @SceneContent("settings")
-public class SettingsController extends Fragment {
+public class SettingsController extends ActivityFragment<AppActivity> {
 
     @FXML
     private VerticalSlidingTabLayout tabLayout;
@@ -21,27 +19,18 @@ public class SettingsController extends Fragment {
     private ViewPager viewPager;
 
     @Override
-    public void onCreateView(FXMLLoader fxmlLoader) {
+    protected void init() {
+        FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getFragmentManager());
+        pagerAdapter.setContainer(viewPager);
 
-        FxmlUtils.setupScene(fxmlLoader);
+        HashMap<String, Boolean> args = new HashMap<>();
+        args.put("lastFmConnected", false);
 
-        if (getState() <= 1) {
+        pagerAdapter.addTab("General", GeneralSettings.class, args);
+        pagerAdapter.addTab("LastFM",  LastFMSettings.class, args);
 
-            FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getFragmentManager());
-            pagerAdapter.setContainer(viewPager);
-            viewPager.setAdapter(pagerAdapter);
-
-            HashMap args = new HashMap();
-            args.put("lastFmConnected", false);
-
-            pagerAdapter.addTab("General", GeneralSettings.class, args);
-            pagerAdapter.addTab("LastFM",  LastFMSettings.class, args);
-            tabLayout.setViewPager(viewPager);
-
-            viewPager.setCurrentItem(0);
-        }
-
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(0);
+        tabLayout.setViewPager(viewPager);
     }
-
 }
-

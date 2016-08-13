@@ -10,10 +10,10 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextInputLayout>
-         <TextField fx:id="userField" onKeyTyped="#userCredinialsChanged" promptText="Username" />
+         <TextField fx:id="userField" onKeyTyped="#userCredentialsChanged" promptText="Username" />
       </TextInputLayout>
       <TextInputLayout>
-         <PasswordField fx:id="passwordField" onKeyTyped="#userCredinialsChanged" promptText="Password" />
+         <PasswordField fx:id="passwordField" onKeyTyped="#userCredentialsChanged" promptText="Password" ></PasswordField>
       </TextInputLayout>
       <MaterialButton fx:id="connectionButton" onAction="#connect" text="Connect" />
    </children>

@@ -20,7 +20,6 @@ public class MediaPlayer extends Observable {
 
     private MediaFile nowPlayed;
     private Player player;
-    private Thread playerThread;
     private Thread statusThread;
     private double currentPosition;
     private double stoppedPosition;
@@ -99,7 +98,7 @@ public class MediaPlayer extends Observable {
         }
         player = new Player(stream);
         currentPosition = player.getPosition();
-        playerThread = new Thread(() -> {
+        new Thread(() -> {
             try {
                 player.play((float) volume);
                 if (player.isComplete()) {
@@ -108,8 +107,7 @@ public class MediaPlayer extends Observable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        });
-        playerThread.start();
+        }).start();
     }
 
     public double getCurrentPosition() {
@@ -117,17 +115,16 @@ public class MediaPlayer extends Observable {
     }
 
     private void updateCurrentPosition() {
-        if (playerState.equals(PlayerState.STOPPED)) {
-            return;
-        }
-        double positionBeforeUpdate = getCurrentPosition();
-        if (player != null) {
-            currentPosition = player.getPosition();
-        } else if (!playerState.equals(PlayerState.PAUSED)) {
-            currentPosition = 0;
-        }
-        if (positionBeforeUpdate != getCurrentPosition()) {
-            notifyTimeListeners(getCurrentPosition());
+        if (!playerState.equals(PlayerState.STOPPED)) {
+            double positionBeforeUpdate = getCurrentPosition();
+            if (player != null) {
+                currentPosition = player.getPosition();
+            } else if (!playerState.equals(PlayerState.PAUSED)) {
+                currentPosition = 0;
+            }
+            if (positionBeforeUpdate != getCurrentPosition()) {
+                notifyTimeListeners(getCurrentPosition());
+            }
         }
     }
 
@@ -139,8 +136,7 @@ public class MediaPlayer extends Observable {
 
     private void notifyStateListeners(PlayerState playerState) {
         if (stateListeners != null) {
-            stateListeners.forEach(stateListener -> stateListener.onPlaying(
-                    new PlayerStateEvent(playerState, 0)));
+            stateListeners.forEach(listener -> listener.onPlaying(new PlayerStateEvent(playerState, 0)));
         }
     }
 

@@ -2,12 +2,11 @@ package com.jplayer.view.controller.playlist;
 
 import com.jplayer.media.file.MediaFile;
 import com.jplayer.view.controller.AppActivity;
-import com.jplayer.view.util.fxml.FxmlUtils;
 import com.jplayer.view.util.fxml.SceneContent;
+import com.jplayer.view.util.widget.ActivityFragment;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,14 +14,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
-import org.kairos.core.Fragment;
 
 import java.awt.*;
 import java.io.File;
 import java.util.ListIterator;
 
 @SceneContent("playlist")
-public class PlayListController extends Fragment {
+public class PlayListController extends ActivityFragment<AppActivity> {
 
     @FXML
     private TableView<MediaFile> playList;
@@ -30,9 +28,7 @@ public class PlayListController extends Fragment {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onCreateView(FXMLLoader fxmlLoader) {
-        FxmlUtils.setupScene(fxmlLoader);
-
+    protected void onShow() {
         ObservableList<MediaFile> filteredData;
         if (getArguments().containsKey("filteredData")) {
             filteredData = (ObservableList<MediaFile>) getArguments().get("filteredData");
@@ -54,10 +50,6 @@ public class PlayListController extends Fragment {
             column.setCellFactory(new FormattedTableCellFactory());
             column.setCellValueFactory(new PropertyValueFactory<>(column.getId()));
         });
-    }
-
-    private AppActivity activity() {
-        return (AppActivity) getActivity();
     }
 
     @FXML
