@@ -2,6 +2,7 @@ package com.jplayer.view.controller.playlist;
 
 import com.jplayer.media.file.MediaFile;
 import com.jplayer.view.controller.AppActivity;
+import com.jplayer.view.util.Key;
 import com.jplayer.view.util.fxml.SceneContent;
 import com.jplayer.view.util.widget.ActivityFragment;
 import javafx.collections.ObservableList;
@@ -26,30 +27,26 @@ public class PlayListController extends ActivityFragment<AppActivity> {
     private TableView<MediaFile> playList;
     private ObservableList<MediaFile> mediaFiles;
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void onShow() {
-        ObservableList<MediaFile> filteredData;
-        if (getArguments().containsKey("filteredData")) {
-            filteredData = (ObservableList<MediaFile>) getArguments().get("filteredData");
+        if (getArguments().containsKey(Key.Param.FILTERED_DATA)) {
+            setupPlaylist(getArgument(Key.Param.FILTERED_DATA));
         } else {
-            filteredData = activity().getMediaFiles();
-        }
-
-        if (filteredData != mediaFiles) {
-            setupPlaylist(filteredData);
+            setupPlaylist(activity().getMediaFiles());
         }
     }
 
     private void setupPlaylist(ObservableList<MediaFile> filteredData) {
-        mediaFiles = filteredData;
-        activity().setLibIterator(mediaFiles.iterator());
+        if (filteredData != mediaFiles){
+            mediaFiles = filteredData;
+            activity().setLibIterator(mediaFiles.iterator());
 
-        playList.setItems(mediaFiles);
-        playList.getColumns().forEach(column -> {
-            column.setCellFactory(new FormattedTableCellFactory());
-            column.setCellValueFactory(new PropertyValueFactory<>(column.getId()));
-        });
+            playList.setItems(mediaFiles);
+            playList.getColumns().forEach(column -> {
+                column.setCellFactory(new FormattedTableCellFactory<>());
+                column.setCellValueFactory(new PropertyValueFactory<>(column.getId()));
+            });
+        }
     }
 
     @FXML

@@ -1,6 +1,7 @@
 package com.jplayer.view.controller.settings;
 
 import com.jplayer.view.controller.AppActivity;
+import com.jplayer.view.util.Key;
 import com.jplayer.view.util.fxml.SceneContent;
 import com.jplayer.view.util.widget.ActivityFragment;
 import com.jplayer.view.util.widget.FragmentPagerAdapter;
@@ -24,7 +25,7 @@ public class SettingsController extends ActivityFragment<AppActivity> {
         pagerAdapter.setContainer(viewPager);
 
         HashMap<String, Boolean> args = new HashMap<>();
-        args.put("lastFmConnected", false);
+        args.put(Key.Param.CONNECTED, false);
 
         pagerAdapter.addTab("General", GeneralSettings.class, args);
         pagerAdapter.addTab("LastFM",  LastFMSettings.class, args);

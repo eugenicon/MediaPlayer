@@ -2,6 +2,7 @@ package com.jplayer.view.controller.settings;
 
 import com.jplayer.media.LastFMScrobbler;
 import com.jplayer.view.controller.AppActivity;
+import com.jplayer.view.util.Key;
 import com.jplayer.view.util.fxml.SceneContent;
 import com.jplayer.view.util.widget.ActivityFragment;
 import javafx.fxml.FXML;
@@ -25,12 +26,9 @@ public class LastFMSettings extends ActivityFragment<AppActivity> {
     @Override
     protected void onShow() {
         HashMap arguments = getArguments();
-        if (arguments.containsKey("lastFmConnected")){
-            boolean lastFmConnected = (boolean) arguments.get("lastFmConnected");
-            connectionButton.setDisable(lastFmConnected);
+        if (arguments.containsKey(Key.Param.CONNECTED)){
+            connectionButton.setDisable(getArgument(Key.Param.CONNECTED));
         }
-
-        arguments.forEach((k, v) -> System.out.printf("%s : %s%n", k, v));
     }
 
     @FXML

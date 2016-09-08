@@ -5,6 +5,7 @@ import com.jplayer.media.file.MediaFile;
 import com.jplayer.view.controller.AppActivity;
 import com.jplayer.view.controller.playlist.PlayListController;
 import com.jplayer.view.controller.settings.SettingsController;
+import com.jplayer.view.util.Key;
 import com.jplayer.view.util.fxml.SceneContent;
 import com.jplayer.view.util.widget.ActivityFragment;
 import javafx.application.Platform;
@@ -85,13 +86,13 @@ public class LibraryController extends ActivityFragment<AppActivity> {
                 file -> file.getArtist().equals(author));
 
         HashMap<String, List<MediaFile>> arguments = new HashMap<>();
-        arguments.put("filteredData", filteredData);
+        arguments.put(Key.Param.FILTERED_DATA, filteredData);
 
-        activity().getPager().setCurrentItem(PlayListController.class, arguments);
+        activity().showPage(PlayListController.class, arguments);
     }
 
     @FXML
     public void onSpecifyPathToLibrary() {
-        activity().getPager().setCurrentItem(SettingsController.class);
+        activity().showPage(SettingsController.class);
     }
 }

@@ -22,4 +22,8 @@ public abstract class ActivityFragment<T extends Activity> extends Fragment {
     public T activity() {
         return (T) getActivity();
     }
+
+    protected <A, K> A getArgument(K key){
+        return (A) getArguments().get(key);
+    }
 }

@@ -5,10 +5,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
-            xmlns="http://javafx.com/javafx/null">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/null">
 
-    <BorderPane opacity="0.61" prefHeight="100.0" prefWidth="180.0">
+    <BorderPane prefHeight="100.0" prefWidth="180.0">
         <center>
             <Label id="label" alignment="CENTER" contentDisplay="CENTER" minWidth="128.0" prefHeight="128.0"
                    prefWidth="128.0" text="Long artist name - Rather Long Track Name" textAlignment="CENTER"

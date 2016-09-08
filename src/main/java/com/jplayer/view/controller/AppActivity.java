@@ -27,6 +27,7 @@ import org.kairos.core.Activity;
 import org.kairos.layouts.SlidingTabLayout;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import static com.sun.media.jfxmedia.events.PlayerStateEvent.PlayerState;
@@ -169,7 +170,11 @@ public class AppActivity extends Activity {
         return (ObservableList<MediaFile>) mediaLibrary.getContent();
     }
 
-    public ViewPager getPager() {
-        return viewPager;
+    public void showPage(Class fragmentClass){
+        viewPager.setCurrentItem(fragmentClass);
+    }
+
+    public void showPage(Class fragmentClass, HashMap arguments){
+        viewPager.setCurrentItem(fragmentClass, arguments);
     }
 }
