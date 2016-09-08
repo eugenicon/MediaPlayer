@@ -4,9 +4,11 @@ import com.jplayer.media.file.MediaFile;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class MediaLibrary extends Observable implements List<MediaFile>, Serializable {
 
+    private static final Logger logger = Logger.getLogger(MediaLibrary.class.getName());
     private List<MediaFile> mediaFiles;
 
     public MediaLibrary(List<MediaFile> mediaFiles) {
@@ -20,6 +22,8 @@ public class MediaLibrary extends Observable implements List<MediaFile>, Seriali
             try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path))) {
                 mediaFiles.addAll((List<MediaFile>) inputStream.readObject());
                 return new MediaLibrary(mediaFiles);
+            } catch (InvalidClassException e) {
+                logger.info("Can't load library - " + e.getMessage());
             } catch (Exception e) {
                 e.printStackTrace();
             }

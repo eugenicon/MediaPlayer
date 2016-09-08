@@ -20,7 +20,6 @@ public class MediaPlayer extends Observable {
 
     private MediaFile nowPlayed;
     private Player player;
-    private Thread statusThread;
     private double currentPosition;
     private double stoppedPosition;
 
@@ -37,17 +36,16 @@ public class MediaPlayer extends Observable {
     @SuppressWarnings({"InfiniteLoopStatement", "AccessStaticViaInstance"})
     public MediaPlayer() {
         playerState = PlayerState.STOPPED;
-        statusThread = new Thread(() -> {
+        new Thread(() -> {
             while (true) {
                 updateCurrentPosition();
                 try {
-                    statusThread.sleep(500);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        });
-        statusThread.start();
+        }).start();
     }
 
     public void addStateListener(PlayerStateObserver stateListener) {
@@ -82,7 +80,7 @@ public class MediaPlayer extends Observable {
     private void startPlaying(MediaFile mediaFile, int position) {
         totalDuration = mediaFile.getDuration().toMillis();
         try {
-            playSource(mediaFile.getFulName(), position);
+            playSource(mediaFile.getPath(), position);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,9 +1,16 @@
 package com.jplayer.media.file;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.time.Duration;
 
+@Getter
+@Setter
+@EqualsAndHashCode(of = "path")
 public class MediaFile implements Serializable {
 
     private String path;
@@ -18,56 +25,8 @@ public class MediaFile implements Serializable {
         this.path = path.toString();
     }
 
-    public Duration getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Duration duration) {
-        this.duration = duration;
-    }
-
     public String getArtist() {
         return artist == null ? "" : artist;
-    }
-
-    public void setArtist(String artist) {
-        this.artist = artist;
-    }
-
-    public String getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int getTrackNumber() {
-        return trackNumber;
-    }
-
-    public void setTrackNumber(int trackNumber) {
-        this.trackNumber = trackNumber;
-    }
-
-    public String getFulName() {
-        return path;
     }
 
     public String getPrettyDuration() {
@@ -76,14 +35,6 @@ public class MediaFile implements Serializable {
         }
         return String.format("%02d:%02d", duration.toMinutes(),
                 duration.minusMinutes(duration.toMinutes()).getSeconds());
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
     }
 
     @Override
